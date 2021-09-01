@@ -558,8 +558,6 @@
 
 (defn- read-fn
   [rdr _ opts pending-forms]
-  (if arg-env
-    (throw (ex-info "Nested #()s are not allowed" {:type :illegal-state})))
   (binding [arg-env (sorted-map)]
     (let [form (read* (doto rdr (unread \()) true nil opts pending-forms) ;; this sets bindings
           rargs (rseq arg-env)
